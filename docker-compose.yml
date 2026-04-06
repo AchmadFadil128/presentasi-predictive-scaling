@@ -1,0 +1,10 @@
+services:
+  slidev:
+    image: ramdhanistars/predictivescaling-slidev:latest
+    container_name: predictive-scaling-slidev
+    ports:
+      - "3030:3030"
+    command: npx slidev --remote --port 3030
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
