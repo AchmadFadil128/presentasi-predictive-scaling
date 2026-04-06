@@ -1,0 +1,106 @@
+/* ================================================
+   Global CSS override untuk presentasi
+   ================================================ */
+
+:root {
+  --slidev-theme-background: transparent;
+  --slidev-theme-color: #181818;
+  color-scheme: light;
+  
+  /* Override Slidev internal font variables */
+  --slidev-theme-font: 'Cerebri Sans Pro', 'Cerebri Sans', sans-serif;
+  --slidev-theme-font-sans: 'Cerebri Sans Pro', 'Cerebri Sans', sans-serif;
+  --slidev-theme-font-serif: 'Cerebri Sans Pro', 'Cerebri Sans', sans-serif;
+  --slidev-theme-font-mono: 'Cerebri Sans Pro', 'Cerebri Sans', monospace;
+  font-family: var(--slidev-theme-font-sans) !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #015fdb !important;
+  font-weight: bold;
+}
+
+p, li {
+  color: #222222 !important;
+  line-height: 1.6;
+}
+
+.slidev-layout {
+  background: transparent !important;
+}
+
+.slidev-slide, .slidev-slide-content {
+  background: transparent !important;
+}
+
+/* Header line styles from the reference image */
+.header-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.header-line::before,
+.header-line::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #777;
+  margin: 0 1rem;
+}
+
+/* Card styles from the reference image */
+.feature-card {
+  border: 1px solid #89CFF0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  background: linear-gradient(to right, rgba(240, 248, 255, 0.6), rgba(244, 243, 239, 0.4));
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #222 !important;
+  text-align: justify;
+  transition: all 0.3s ease;
+}
+
+.feature-card-no-ts {
+  border: 1px solid #89CFF0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  background: linear-gradient(to right, rgba(240, 248, 255, 0.6), rgba(244, 243, 239, 0.4));
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #222 !important;
+  text-align: justify;
+  transition: all 0.3s ease;
+}
+
+
+/* Kustomisasi animasi v-click khusus untuk feature-card */
+.feature-card.slidev-vclick-target {
+  transition: all 0.3s ease;
+}
+
+.feature-card.slidev-vclick-hidden {
+  opacity: 0.2 !important; /* Terlihat redup sejak awal */
+  pointer-events: none;
+}
+
+.feature-card.slidev-vclick-current {
+  opacity: 1 !important;
+  border-color: #015fdb !important; /* Berubah border biru tua */
+  transform: scale(1.02); /* Sedikit membesar / pop-out */
+  box-shadow: 0 8px 15px -3px rgba(1, 95, 219, 0.2);
+}
+
+.feature-card.slidev-vclick-prior {
+  opacity: 0.8 !important; /* Kembali ke ukuran normal dan sedikit redup bila diklik lagi */
+  border-color: #89CFF0 !important;
+  transform: scale(1);
+}
+

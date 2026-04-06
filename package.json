@@ -1,0 +1,18 @@
+{
+  "name": "predictivescaling",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build",
+    "dev": "slidev --open --remote",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^52.14.1",
+    "@slidev/theme-default": "latest",
+    "@slidev/theme-seriph": "latest",
+    "chart.js": "^4.5.1",
+    "vue": "^3.5.29",
+    "vue-chartjs": "^5.3.3"
+  }
+}
