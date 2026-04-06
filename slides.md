@@ -86,8 +86,7 @@ layoutClass: gap-10
           responsive: true,
           maintainAspectRatio: false,
           plugins: { legend: { display: false }, tooltip: { enabled: true } },
-          scales: { y: { beginAtZero: true, max: 100 }, x: { grid: { display: false } } },
-          animation: { duration: 1000, easing: 'easeOutBounce' }
+          scales: { y: { beginAtZero: true, max: 100 }, x: { grid: { display: false } } }
         }"
       />
     </div>
@@ -142,17 +141,15 @@ layoutClass: gap-10
 ---
 
 <h1>Topologi Jaringan</h1>
-<img src="./images/Topologi.png" alt="Topologi" class="w-auto h-100 object-cover feature-card-no-ts" />
+<div class="grid grid-cols-2 gap-4">
+<img src="./images/Topologi.png" alt="Topologi" class="w-auto h-100 object-cover feature-card-no-ts p-1" />
+<p>Virtual Machine yang digunakan berada di dalam VMware vSphere. Laptop penulis terhubung ke Virtual Machine menggunakan koneksi WiFi yang terhubung ke switch core.</p>
+</div>
 
 ---
 
 <h1>Diagram Arsitektur</h1>
 <img src="./images/diagramArsitektur.png" alt="Diagram Arsitektur" class="w-auto h-100 object-cover rounded-xl shadow-md my-4 border border-gray-200" />
-
----
-
-<h1>Diagram Workflow</h1>
-<img src="./images/workflow.png" alt="Workflow" class="w-auto h-100 object-cover feature-card-no-ts" />
 
 ---
 
@@ -228,17 +225,126 @@ layoutClass: gap-10
 </div>
 ---
 
-<h1>Simulasi Layanan Web dan Sistem Pemantauan</h1>
+<h1>Integrasi Layanan Web dan Sistem Pemantauan</h1>
 
 <div class="feature-card-no-ts mt-15">
-<h2 class="mb-6 text-center !text-4xl !text-[#015fdb]">Kubernetes</h2>
-<div class="feature-class">
+  <h2 class="mb-6 text-center !text-4xl !text-[#015fdb] ">Kubernetes</h2>
+  <div class="grid grid-cols-3 gap-4">
+    <div v-click="1" class="feature-card-no-ts">
+        <img src="https://images.icon-icons.com/2699/PNG/512/nginx_logo_icon_169915.png" alt="Nginx Logo" class="w-10 h-10 mx-auto" />
+        <p class="text-sm text-center">Nginx digunakan sebagai web dummy untuk menerima permintaan dari K6.</p>
+      </div>
+    <div v-click="2" class="feature-card-no-ts">
+        <img src="https://www.clipartmax.com/png/middle/450-4502990_prometheus-logo-logo-prometheus-monitoring.png" alt="Prometheus Logo" class="w-10 h-10 mx-auto" />
+        <p class="text-sm text-center">Prometheus digunakan sebagai penyimpanan data permintaan pada Nginx</p>
+    </div>
+    <div v-click="3" class="feature-card-no-ts">
+        <img src="https://p1.hiclipart.com/preview/950/813/299/github-logo-grafana-influxdb-dashboard-visualization-web-application-installation-data-plugin-png-clipart.jpg" alt="Grafana Logo" class="w-10 h-10 mx-auto" />
+        <p class="text-sm text-center">Grafana digunakan sebagai visualisasi metrik yang tersimpan di dalam Prometheus.</p>
+    </div>
+  </div>
 </div>
+
+---
+
+# Pengujian beban menggunakan K6
+
+```javascript {1-3|4-6|7-9|10-12|13-15|16-18|19-21|all}
+  if (hour >= 0 && hour < 6) {
+    // Sangat rendah
+    baseReq = randomRange(5, 20);
+  } else if (hour >= 6 && hour < 9) {
+    // Naik perlahan
+    baseReq = randomRange(50, 150);
+  } else if (hour >= 9 && hour < 12) {
+    // Puncak pertama
+    baseReq = randomRange(200, 500);
+  } else if (hour >= 12 && hour < 14) {
+    // Istirahat, sedikit turun
+    baseReq = randomRange(80, 200);
+  } else if (hour >= 14 && hour < 17) {
+    // Puncak kedua
+    baseReq = randomRange(300, 700);
+  } else if (hour >= 17 && hour < 21) {
+    // Menurun perlahan
+    baseReq = randomRange(100, 300);
+  } else {
+    // 21–24: Rendah
+    baseReq = randomRange(20, 80);
+  }
+```
+---
+
+# Pelatihan data dan Pelatihan model
+<div class="grid gap-4">
+<img src="./images/prediksi1.png" alt="Prediksi" class="w-auto h-50 object-cover" />
+<img src="./images/prediksi2.png" alt="Prediksi" class="w-auto h-50 object-cover" />
+</div>
+---
+
+# Integrasi Model Prediksi
+
+<div class="grid grid-cols-3 gap-4 mt-15">
+    <div v-click="1" class="feature-card !bg-transparent !px-14 !py-10 !text-3xl text-center">
+      data.py
+      <p class="text-sm text-center">Digunakan untuk mengambil data terbaru dari Prometheus.</p>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1280px-Python-logo-notext.svg.png" alt="Python" class="w-10 h-10 mx-auto" />
+    </div>
+    <div v-click="2" class="feature-card !bg-transparent !px-14 !py-10 !text-3xl text-center">
+      main.py
+      <p class="text-sm text-center">Digunakan untuk memprediksi permintaan 30 menit ke depan.</p>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1280px-Python-logo-notext.svg.png" alt="Python" class="w-10 h-10 mx-auto" />
+    </div>
+    <div v-click="3" class="feature-card !bg-transparent !px-14 !py-10 !text-3xl text-center">
+      scale.py
+      <p class="text-sm text-center">Digunakan untuk melakukan scaling berdasarkan putusan main.py</p>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1280px-Python-logo-notext.svg.png" alt="Python" class="w-10 h-10 mx-auto" />
+    </div>
+</div>
+
+---
+layout: section
+
+---
+# Pengujian
+
+---
+
+<h1>Kesimpulan</h1>
+
+<div class="feature-card-no-ts mt-2 pt-2 pb-2">
+<p>1.	Sistem observabilitas pada lingkungan Kubernetes berhasil disimulasikan dengan baik tanpa terjadi down time pada proses pengumpulan metrik dari aplikasi Nginx ke Prometheus. Visualisasi data melalui dashboard Grafana mampu menampilkan permintaan sistem secara real-time.</p>
+</div>
+<div class="feature-card-no-ts mt-2 pt-2 pb-2">
+<p>2.	Model prediksi deret waktu menggunakan SARIMAX (1,1,1)(1,1,1,48) menunjukkan kinerja yang cukup baik dengan nilai AIC 237, BIC 250, dan HQIC 242. Model mampu merepresentasikan pola tren dan musiman pada data meskipun salah satu parameter memiliki standar galat yang relatif tinggi.</p>
+</div>
+<div class="feature-card-no-ts mt-2 pt-2 pb-2">
+<p>3.	Simulasi alur kerja AIOps yang mengintegrasikan model SARIMA dengan mekanisme penskalaan Kubernetes berjalan dengan tingkat otomatisasi skrip sebesar 100%. Model prediksi beban kerja yang digunakan menghasilkan akurasi 85.56% berdasarkan pengurangan nilai MAPE pada pola data yang berulang.</p>
+</div>
+---
+
+<h1>Saran</h1>
+
+<div class="grid grid-cols-2 gap-4">
+<div class="feature-card-no-ts mt-2 pt-2 pb-2 text-center">
+<p>Pengembangan Model Prediksi</p>
+</div>
+<div class="feature-card-no-ts mt-2 pt-2 pb-2 text-center">
+<p>Otomatisasi Penskalaan Lebih Lanjut</p>
+</div>
+<div class="feature-card-no-ts mt-2 pt-2 pb-2 text-center">
+<p>Pembuatan aplikasi prediksi di atas Kubernetes</p>
+</div>
+<div class="feature-card-no-ts mt-2 pt-2 pb-2 text-center">
+<p>Penggunaan AI Agent</p>
+</div>
+</div>
+
 ---
 
 # Terima Kasih
 ## Tanya Jawab
 
-<div class="pt-6 text-sm opacity-70">
+<p>
 Achmad Fadil Nur Ramdhani
-</div>
+</p>
